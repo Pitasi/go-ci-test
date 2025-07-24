@@ -1,0 +1,22 @@
+---
+name: Release
+
+on:
+  push:
+
+jobs:
+  release-dev:
+    name: release-dev ${{ inputs.app_name }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '1.24'
+    - run: go env GOMODCACHE
+    - run: go env GOCACHE
