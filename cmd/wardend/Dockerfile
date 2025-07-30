@@ -5,6 +5,11 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash 
 
 WORKDIR /warden
 
+COPY go.mod go.sum ./
+
+RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
+    go mod download
+
 RUN --mount=type=bind,source=.,target=.,readonly\
     --mount=type=cache,target=/root/.cache/go-build,sharing=locked \
     --mount=type=cache,target=/go/pkg/mod,sharing=locked \
@@ -21,7 +26,6 @@ FROM debian:bookworm-slim AS runtime
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt update && apt install -y \
-    libvips-dev \
     ca-certificates curl
 
 RUN useradd -M -u 1000 -U -s /bin/sh -d /data warden && \

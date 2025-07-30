@@ -60,6 +60,7 @@ release-publish-docker project-name push="true":
         --label=org.opencontainers.image.url=https://wardenprotocol.org \
         --label=org.opencontainers.image.source=https://github.com/warden-protocol/wardenprotocol \
         --label=org.opencontainers.image.licenses=Apache-2.0 \
+        {{ if env("GITHUB_ACTIONS", "") == "true" { "--cache-from type=gha --cache-to type=gha,mode=max" } else { "" } }} \
         --provenance=false --sbom=false \
         --push={{push}} \
         -f ./cmd/{{ project-name }}/Dockerfile \
@@ -74,6 +75,7 @@ release-wardend-binary:
         --build-arg WASMVM_ARM64_CHECKSUM={{ wasmvm_arm64_checksum }} \
         --build-arg WARDEND_VERSION={{ version }} \
         -f ./cmd/wardend/Dockerfile \
+        {{ if env("GITHUB_ACTIONS", "") == "true" { "--cache-from type=gha --cache-to type=gha,mode=max" } else { "" } }} \
         --output dist .
     ls -alh dist
 

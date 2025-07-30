@@ -68,15 +68,16 @@ jobs:
 
       - name: Generate checksums
         run: |
-          cd artifacts
-          sha256sum binary-amd64/* > checksums.txt
-          sha256sum binary-arm64/* >> checksums.txt
+          cd artifacts/binary-amd64
+          sha256sum * > ../sha256sum.txt
+          cd ../binary-arm64
+          sha256sum * >> ../sha256sum.txt
           cd ..
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/checksums.txt
+            artifacts/sha256sum.txt
             artifacts/binary-amd64/*
             artifacts/binary-arm64/*
