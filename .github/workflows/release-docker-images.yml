@@ -1,5 +1,5 @@
 ---
-name: Release development images
+name: Release Docker images
 
 on:
   workflow_call:
