@@ -19,8 +19,7 @@ on:
           - wardenkms
 
 jobs:
-  release-dev-amd64:
-    name: release-dev ${{ inputs.app_name }}
+  release-image-amd64:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -51,8 +50,7 @@ jobs:
       - name: Release
         run: just release-${{ inputs.app_name }}
 
-  release-dev-arm64:
-    name: release-dev ${{ inputs.app_name }}
+  release-image-arm64:
     runs-on: ubuntu-24.04-arm
     permissions:
       actions: read

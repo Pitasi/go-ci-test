@@ -69,7 +69,6 @@ jobs:
       - name: Generate checksums
         run: |
           cd artifacts
-          # The downloaded artifacts are in subdirectories named after them.
           sha256sum binary-amd64/* > checksums.txt
           sha256sum binary-arm64/* >> checksums.txt
           cd ..
@@ -78,6 +77,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            checksums.txt
+            artifacts/checksums.txt
             artifacts/binary-amd64/*
             artifacts/binary-arm64/*
