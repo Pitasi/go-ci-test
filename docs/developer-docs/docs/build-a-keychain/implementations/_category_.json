@@ -1,0 +1,11 @@
+{
+  "position": 4,
+  "label": "Implementations",
+  "collapsible": true,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "title": "Implementations"
+  },
+  "customProps": {}
+}
